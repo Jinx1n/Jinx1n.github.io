@@ -1,0 +1,33 @@
+body {
+	background-color:#E0FFFF;
+	font-family: "MS PGothic", "Hiragino Kaku Gothic Std", fantasy;
+}
+
+h2 {
+	font-size: 150%;
+	color:#000000;
+	background-color:#87CEFA;
+	margin:2ex 0ex 0ex 0ex;
+	padding:.5ex;
+	text-shadow:1px 2px white;
+	list-style-type: square;
+}
+p {
+	font-size: 120%;
+	
+}
+
+img {
+	width:35%;
+	border:double;
+	border-width:5px 5px 5px 5px;
+	border-color:blue;
+}
+div.header {
+	top: 2px;
+	left: 2px;
+	right: 0px;
+	font-size: 90%;
+	color:black;
+	text-shadow:2px 3px white;
+}
