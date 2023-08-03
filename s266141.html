@@ -1,14 +1,15 @@
 <html lang="ja">
 <head>
+<title>Weather Forecast</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta http-equiv="Content-Script-Type" content="text/javascript">
-<title>Spoken Dialog by Javascript</title>
+<title>Weather Forecast</title>
 </head>
 <body>
 
-<h1>複数のキーワード（順序入れ替え可）</h1>
+<h1>全国の天気予報</h1>
 
 <p>
 <button id="startButton">start</button>
@@ -22,11 +23,53 @@
 <script>
 // 応答の定義（ハッシュ）    
 var response = {
+    "北海道,天気": ["北海道の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/1.html"],
+    "青森,天気": ["青森県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/2/"],
+    "岩手,天気": ["岩手県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/3/"],
+    "宮城,天気": ["宮城県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/4/"],
+    "秋田,天気": ["秋田県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/5/"],
+    "山形,天気": ["山形県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/6/"],
+    "福島,天気": ["福島県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/7/"],
+    "茨城,天気": ["茨城県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/8/"],
+    "栃木,天気": ["栃木県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/9/"],
+    "群馬,天気": ["群馬県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/10/"],
+    "埼玉,天気": ["埼玉県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/11/"],
+    "千葉,天気": ["千葉県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/12/"],
+    "東京,天気": ["東京都の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/13/"],
+    "神奈川,天気": ["神奈川県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/14/"],
+    "新潟,天気": ["新潟県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/15/"],
+    "福山,天気": ["福山県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/16/"],
+    "石川,天気": ["石川県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/17/"],
+    "福井,天気": ["福井県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/18/"],
+    "山梨,天気": ["山梨県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/19/"],
+    "長野,天気": ["長野県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/20/"],
+    "岐阜,天気": ["岐阜県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/21/"],
+    "静岡,天気": ["静岡県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/22/"],
+    "愛知,天気": ["愛知県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/23/"],
+    "三重,天気": ["三重県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/24/"],
+    "滋賀,天気": ["滋賀県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/25/"],
     "和歌山,天気": ["和歌山県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/30/"],
     "大阪,天気": ["大阪府の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/27/"],
     "京都,天気": ["京都府の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/26/"],
     "奈良,天気": ["奈良県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/29/"],
-    "兵庫,天気": ["兵庫県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/28/"]
+    "兵庫,天気": ["兵庫県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/28/"],
+	"鳥取,天気": ["鳥取県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/31/"],
+	"島根,天気": ["島根県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/32/"],
+	"岡山,天気": ["岡山県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/33/"],
+	"広島,天気": ["広島県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/34/"],
+	"山口,天気": ["山口県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/35/"],
+	"徳島,天気": ["徳島県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/36/"],
+	"香川,天気": ["香川県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/37/"],
+	"愛媛,天気": ["愛媛県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/38/"],
+	"高知,天気": ["高知県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/39/"],
+	"福岡,天気": ["福岡県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/40/"],
+	"佐賀,天気": ["佐賀県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/41/"],
+	"長崎,天気": ["長崎県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/42/"],
+	"熊本,天気": ["熊本県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/43/"],
+	"大分,天気": ["大分県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/44/"],
+	"宮崎,天気": ["宮崎県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/45/"],
+	"鹿児島,天気": ["鹿児県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/46/"],
+	"沖縄,天気": ["沖縄県の天気予報を表示します", "https://weather.yahoo.co.jp/weather/jp/47/"]
 };
 
 const startButton = document.querySelector('#startButton'); // 開始ボタン
@@ -90,15 +133,16 @@ asr.onresult = function(event){
         });
 
         if(typeof answer == 'undefined'){
-	        answer = "ごめんなさい。わかりません。";
+	        answer = ["ごめんなさい。わかりません。","https://fertilitymatters.ca/wp-content/uploads/2020/10/AdobeStock_268886324-scaled.jpeg"];
     	}
 	
 
         let weatherText = createAnchorTag(answer[1], answer[0]);
 
+
         output += transcript + ' => ' + weatherText + '<br>';
 
-	    tts.text = weatherText; // 
+	    tts.text = weatherText	; // 
 	    // ...
 
     } else { // 結果がまだ未確定のとき
